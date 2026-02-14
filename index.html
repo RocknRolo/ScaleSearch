@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ScaleSearch</title>
+    <link rel="stylesheet" href="style.css">
+    <script defer src="script.js"></script>
+</head>
+<body>
+
+<div id="header">ScaleSearch</div>
+
+<div id="grid_parent">
+    
+    <div id="key" class="c1">
+        <div id="key_label" class="c1">Key</div>
+        <select id="key_root" onchange="refresh()">
+            <option value="C">C</option>
+            <option value="D">D</option>
+            <option value="E">E</option>
+            <option value="F">F</option>
+            <option value="G">G</option>
+            <option value="A">A</option>
+            <option value="B">B</option>
+        </select>
+        
+        <select id="key_acc" onchange="refresh()">
+            <option value="1">#</option>
+            <option value="0" selected> </option>
+            <option value="-1">b</option>
+        </select>
+    </div>
+    
+    <div id="mode" class="c2">
+        <div id="mode_label" class="c2">Mode</div>
+        <select id="mode_sel" onchange="refresh()">
+            <option value="1">Ionian</option>
+            <option value="2">Dorian</option>
+            <option value="3">Phrygian</option>
+            <option value="4">Lydian</option>
+            <option value="5">Mixolydian</option>
+            <option value="6">Aeolian</option>
+            <option value="7">Locrian</option>
+        </select>
+    </div> 
+    
+    <div id="cc" class="c3">
+        <div id="cc_label" class="c3">Chord Complexity</div>
+        <select id="cc_sel" onchange="refresh()">
+            <option value="0">1 3 5</option>
+            <option value="1">1 3 5 7</option>
+            <option value="2">1 3 5 7 9</option>
+            <option value="3">1 3 5 7 9 11</option>
+            <option value="4">1 3 5 7 9 11 13</option>
+        </select>
+    </div>
+
+    <div id="modes_label">Modes</div>
+    <div id="scales_label">Scales</div>
+    <div id="chords_label">Chords</div>
+    <pre id="modeDisplay" class="c1"></pre>
+    <pre id="toneDisplay" class="c2"></pre>
+    <pre id="chrdDisplay" class="c3"></pre>
+</div>
+
+
+<a href="https://rocknrolo.github.io/">RocknRolo</a>
+</body>
+</html>
+
