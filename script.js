@@ -1,6 +1,6 @@
 // Author: Roel Kemp (RocknRolo).
 
-// This part of the code deals with calculating scales and defining Tone and Scale objects.
+// This part of the code deals with defining Tone and Scale objects and calculating scales.
 
 const SEMITONES = "C D EF G A B";
 const NATURALS = SEMITONES.replaceAll(" ","");
@@ -110,11 +110,12 @@ function refresh() {
 
     scale = (new Scale(new Tone(rootNat, rootAcc), mode)).tones;
 
-    modeDisplay.textContent = "";
-    toneDisplay.textContent = "";
-    chrdDisplay.textContent = "";
+    modeDisplay.innerHTML = "";
+    toneDisplay.innerHTML = "";
+    chrdDisplay.innerHTML = "";
 
-    for (let i = 0; i < scale.length; i++) { 
+    for (let i = 0; i < scale.length; i++) {
+ 
         let modeName = modeNames[(i + (mode - 1)) % modeNames.length];
         let rowTone = scale[i].toString(); 
         
@@ -122,19 +123,44 @@ function refresh() {
         for (let index = 0; index < TONE_SPACE - rowTone.length; index++) {
             modeSpace += " ";
         }
+
+        modeDisplay.innerHTML += "<br>";
+        modeDisplay.innerHTML += rowTone + modeSpace + modeName;
         
-        modeDisplay.textContent += rowTone + modeSpace + modeName;
-        
+        // ((n - 1) % 7) + 1
+        // This formula with give the desired effect of looping from 1 to 7, even if the given number is out of bounds.
+        let modeScale = new Scale(new Tone("C", 0), (1 + (mode - 1) + i % modeNames.length)).tones;
+        let intervalText = "";
         let scaleText = "";
+
         for (let j = 0; j < scale.length; j++) {
+            let modeFlatSharp = modeScale[j].flatSharp;
+            let accidental = modeFlatSharp < 0 ? "b" : "#";
+
+            let curIvText = "";
+            for (let index = 0; index < Math.abs(modeFlatSharp); index++) {
+                curIvText += accidental;
+            }
+
+            // remove curIvText.length from intervalText before the next piece of text is added.
+            let curIvTextLen = curIvText.length;
+            for (let index = 0; index < curIvTextLen; index++) {
+                intervalText = intervalText.substring(0, intervalText.length - 2) + intervalText.substring(intervalText.length - 1), intervalText.length;
+            }
+
+            curIvText += (j + 1) + "   ";
+
+            intervalText += curIvText;
+
             let toneStr = scale[(i + j) % scale.length].toString(); 
             scaleText += toneStr;
             
-            for (let k = 0; k < TONE_SPACE - toneStr.length; k++) {
+            for (let index = 0; index < TONE_SPACE - toneStr.length; index++) {
                 scaleText += " ";
             }
         }
-        toneDisplay.textContent += scaleText;
+        toneDisplay.innerHTML += intervalText + "<br>";
+        toneDisplay.innerHTML += scaleText + "<br><br>";
 
         let root = scale[i];
         let third = scale[(i + 2) % scale.length];
@@ -219,12 +245,12 @@ function refresh() {
         }
 
         let chordText = rowTone + chordName;
-        chrdDisplay.textContent += chordText;
+        chrdDisplay.innerHTML += "<br>";
+        chrdDisplay.innerHTML += chordText;
 
         if (i < scale.length - 1) {
-            modeDisplay.textContent += "\n";
-            toneDisplay.textContent += "\n";
-            chrdDisplay.textContent += "\n";
+            modeDisplay.innerHTML += "<br><br>";
+            chrdDisplay.innerHTML += "<br><br>";
         }
     }
 }
