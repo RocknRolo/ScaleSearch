@@ -94,6 +94,14 @@ function getSemitonesBetween(tone1, tone2) {
 
 const modeNames = ["ionian", "dorian", "phrygian", "lydian", "mixolydian", "aeolian", "locrian"]
 
+const romNums = ["I  ",
+                 "II ",
+                 "III",
+                 "IV ",
+                 "V  ",
+                 "VI ",
+                 "VII"];
+
 const TONE_SPACE = 4;
 
 let rootNat;
@@ -115,7 +123,6 @@ function refresh() {
     chrdDisplay.innerHTML = "";
 
     for (let i = 0; i < scale.length; i++) {
- 
         let modeName = modeNames[(i + (mode - 1)) % modeNames.length];
         let rowTone = scale[i].toString(); 
         
@@ -246,7 +253,7 @@ function refresh() {
 
         let chordText = rowTone + chordName;
         chrdDisplay.innerHTML += "<br>";
-        chrdDisplay.innerHTML += chordText;
+        chrdDisplay.innerHTML += romNums[i] + " " + chordText;
 
         if (i < scale.length - 1) {
             modeDisplay.innerHTML += "<br><br>";
