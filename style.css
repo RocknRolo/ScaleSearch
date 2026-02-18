@@ -54,7 +54,7 @@ body {
     font-family: monospace;
     font-size: 1.2rem;
     color: white;
-    white-space: preserve-spaces;
+    white-space: pre;
 }
 
 
